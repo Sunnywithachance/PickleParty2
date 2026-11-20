@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#350652">
+  <meta name="description" content="Register your pickle, look up an entry and cast your Pickle Party ballot.">
+  <title>Pickle Party</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,800;1,900&family=DM+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body id="top">
+  <header class="site-header">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Pickle Party home"><span>Pickle<br>Party</span><span class="brand-pickle" aria-hidden="true"></span></a>
+      <div class="nav-links">
+        <a href="#top" aria-current="location">Home</a>
+        <a href="#entries">Entries</a>
+        <a href="#vote">Vote</a>
+        <a href="#results">Leaderboard</a>
+      </div>
+      <a class="hot-button hub-link" href="#hub"><span aria-hidden="true">🏆</span> Contest Hub</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="launch" aria-labelledby="home-title">
+      <div class="launch-inner">
+        <div class="wordmark">
+          <span class="hero-prop siren" aria-hidden="true">🚨</span>
+          <span class="burst" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h1 id="home-title">Choose Your <em>Champions</em></h1>
+          <span class="burst" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="hero-prop hero-pickle" aria-hidden="true"></span>
+        </div>
+
+        <div class="actions">
+          <section class="panel registration" aria-labelledby="register-title">
+            <div class="panel-heading">
+              <span class="tile-icon plus" aria-hidden="true">+</span>
+              <h2 id="register-title">Register a Pickle</h2>
+            </div>
+            <p>Add your pickle to the competition</p>
+            <div class="jar" aria-hidden="true"></div>
+            <button class="hot-button register" id="register" type="button"><span aria-hidden="true">+</span> Register a Pickle</button>
+          </section>
+          <section class="panel lookup">
+            <form id="search" role="search">
+              <div class="panel-heading">
+                <span class="tile-icon" aria-hidden="true"><span class="magnifier"></span></span>
+                <label for="search-number">Find by<br>Entry Number</label>
+              </div>
+              <p>Look up a specific pickle entry</p>
+              <div class="search-box">
+                <input id="search-number" name="number" inputmode="numeric" pattern="[0-9]+" maxlength="7" autocomplete="off" placeholder="Enter entry number (e.g., 303)" required>
+                <button class="hot-button" type="submit" aria-label="Search"><span class="magnifier" aria-hidden="true"></span></button>
+              </div>
+            </form>
+          </section>
+          <section class="panel instructions" id="how-to-vote" aria-labelledby="how-title">
+            <div class="panel-heading">
+              <span class="tile-icon" aria-hidden="true">✿</span>
+              <h2 id="how-title">How Voting Works</h2>
+            </div>
+            <ol class="steps">
+              <li><span class="step-number" aria-hidden="true">1</span><span class="step-icon" aria-hidden="true">☷</span><a href="#vote">Browse the<br> categories</a></li>
+              <li><span class="step-number" aria-hidden="true">2</span><span class="step-icon" aria-hidden="true">☑</span><a href="#vote">Vote for your<br> favourites</a></li>
+              <li><span class="step-number" aria-hidden="true">3</span><span class="step-icon" aria-hidden="true">♛</span><a href="#results">See the<br> leaderboard</a></li>
+            </ol>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="ballot" aria-labelledby="ballot-title">
+      <div class="flames flames-top" aria-hidden="true"></div>
+      <div class="stage">
+        <div class="stage-inner">
+          <div class="section-title">
+            <span aria-hidden="true">★</span><h2 id="ballot-title">Vote for Your Favourites</h2><span aria-hidden="true">★</span>
+          </div>
+          <div class="cards">
+            <article class="card" data-category="best-tasting">
+              <span class="medal" aria-hidden="true">♛</span>
+              <h3>Best<br>Tasting</h3>
+              <div class="mascot chef" aria-hidden="true"></div>
+              <button class="hot-button vote" type="button" aria-label="Vote for Best Tasting"><span aria-hidden="true">☑</span> Vote</button>
+            </article>
+            <article class="card" data-category="worst-tasting">
+              <span class="medal" aria-hidden="true">⇣</span>
+              <h3>Worst<br>Tasting</h3>
+              <div class="mascot sour" aria-hidden="true"></div>
+              <button class="hot-button vote" type="button" aria-label="Vote for Worst Tasting"><span aria-hidden="true">☑</span> Vote</button>
+            </article>
+            <article class="card" data-category="most-unique">
+              <span class="medal" aria-hidden="true">★</span>
+              <h3>Most<br>Unique</h3>
+              <div class="mascot punk" aria-hidden="true"></div>
+              <button class="hot-button vote" type="button" aria-label="Vote for Most Unique"><span aria-hidden="true">☑</span> Vote</button>
+            </article>
+            <article class="card" data-category="worst-looking">
+              <span class="medal" aria-hidden="true">◉</span>
+              <h3>Worst<br>Looking</h3>
+              <div class="mascot bumpy" aria-hidden="true"></div>
+              <button class="hot-button vote" type="button" aria-label="Vote for Worst Looking"><span aria-hidden="true">☑</span> Vote</button>
+            </article>
+            <article class="card" data-category="worst-smelling">
+              <span class="medal" aria-hidden="true">≋</span>
+              <h3>Worst<br>Smelling</h3>
+              <div class="mascot stinky" aria-hidden="true"></div>
+              <button class="hot-button vote" type="button" aria-label="Vote for Worst Smelling"><span aria-hidden="true">☑</span> Vote</button>
+            </article>
+          </div>
+          <p class="ballot-note">One vote per category. Everyone can vote.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <main id="page" hidden></main>
+
+  <dialog id="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <button class="close" id="close-dialog" aria-label="Close" type="button">×</button>
+    <h2 id="dialog-title"></h2>
+    <p id="dialog-description"></p>
+    <div id="dialog-body"></div>
+  </dialog>
+</body>
+</html>
