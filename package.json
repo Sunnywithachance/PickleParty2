@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "start": "npm run build && node --experimental-sqlite --disable-warning=ExperimentalWarning scripts/serve.mjs"
+    "start": "node scripts/start.mjs"
   },
   "engines": {
     "node": ">=22.5"

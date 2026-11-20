@@ -15,6 +15,27 @@
       "when": 1795138800000,
       "tag": "0001_pickle_names",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795140000000,
+      "tag": "0002_pickle_deletion",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1795141800000,
+      "tag": "0003_continuous_voting",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1795143600000,
+      "tag": "0004_pickle_nicknames",
+      "breakpoints": true
     }
   ]
 }

@@ -1,8 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
+import { loadEnvFile } from 'node:process';
 import { Readable } from 'node:stream';
 import { DatabaseSync } from 'node:sqlite';
 import worker from '../dist/server/index.js';
+
+try {
+  loadEnvFile(new URL('../.env.local', import.meta.url));
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
 
 const db = new DatabaseSync(process.env.PICKLE_DB ?? 'pickle-party.sqlite');
 db.exec('PRAGMA foreign_keys = ON');
@@ -28,6 +35,7 @@ try {
 }
 
 const env = {
+  PICKLE_DELETE_CODE: process.env.PICKLE_DELETE_CODE,
   DB: {
     prepare(sql) {
       const statement = db.prepare(sql);
