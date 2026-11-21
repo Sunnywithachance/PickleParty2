@@ -146,17 +146,19 @@ async function handleApi(request, env, url) {
   return json({ error: 'Page not found.' }, 404);
 }
 
+export async function fetchApi(request, env, url = new URL(request.url)) {
+  try {
+    return await handleApi(request, env, url);
+  } catch (error) {
+    console.error('Pickle Party database request failed', error);
+    return json({ error: 'Something went wrong. Please try again.' }, 500);
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/api/')) {
-      try {
-        return await handleApi(request, env, url);
-      } catch (error) {
-        console.error('Pickle Party database request failed', error);
-        return json({ error: 'Something went wrong. Please try again.' }, 500);
-      }
-    }
+    if (url.pathname.startsWith('/api/')) return fetchApi(request, env, url);
 
     const asset = assets[url.pathname];
     if (!asset || (request.method !== 'GET' && request.method !== 'HEAD')) {
