@@ -18,3 +18,5 @@ Set `PICKLE_DELETE_CODE` to a four-digit server secret. For local use, add `PICK
 4. Redeploy. The build applies the migrations from `drizzle/` to the configured database. Open `/api/pickles` on the deployment to check the connection. A new database returns an empty `entries` array.
 
 Local development uses its own SQLite file. Vercel keeps entries and votes in the database configured for that environment.
+
+`.env.example` lists the Turso variables using placeholder values. With both placeholders in Vercel, the site can deploy and show its pages. Registration, voting, and results become available after you replace both values in Vercel and redeploy. You can try the full flow locally with `npm start` while the cloud database is being set up.
