@@ -67,17 +67,27 @@ async function handleApi(request, env, url) {
       if (!Number.isInteger(page) || page < 1 || page > 1000000) {
         return json({ error: 'Choose a valid page.' }, 400);
       }
-      const size = 10;
+      const size = url.searchParams.get('view') === 'directory' ? 6 : 10;
       const { results } = await db.prepare(`
-        SELECT id, entry_number AS number, pickle_name AS name FROM pickles
-        WHERE ? = '' OR entry_number = ? OR instr(lower(COALESCE(pickle_name, '')), lower(?)) > 0
+        SELECT id, entry_number AS number, pickle_name AS name, pickle_nickname AS nickname,
+          owner_name AS ownerName, COUNT(*) OVER () AS total
+        FROM pickles
+        WHERE ? = '' OR entry_number = ?
+          OR instr(lower(COALESCE(pickle_name, '')), lower(?)) > 0
+          OR instr(lower(COALESCE(pickle_nickname, '')), lower(?)) > 0
+          OR instr(lower(COALESCE(owner_name, '')), lower(?)) > 0
         ORDER BY entry_number LIMIT ? OFFSET ?
-      `).bind(query, parseNumber(query), query, size + 1, (page - 1) * size).all();
-      return json({ entries: results.slice(0, size), hasNext: results.length > size });
+      `).bind(query, parseNumber(query), query, query, query, size, (page - 1) * size).all();
+      const total = results[0]?.total ?? 0;
+      const entries = results.map(({ total, ...entry }) => entry);
+      return json({ entries, total, hasNext: total > page * size });
     }
     const number = parseNumber(url.searchParams.get('number'));
     if (!number) return json({ error: 'Enter a valid pickle number.' }, 400);
-    const entry = await db.prepare('SELECT entry_number AS number, pickle_name AS name, pickle_nickname AS nickname FROM pickles WHERE entry_number = ?')
+    const entry = await db.prepare(`
+      SELECT entry_number AS number, pickle_name AS name, pickle_nickname AS nickname, owner_name AS ownerName
+      FROM pickles WHERE entry_number = ?
+    `)
       .bind(number).first();
     return entry ? json(entry) : json({ error: `Pickle #${number} has not been registered yet.` }, 404);
   }
@@ -101,16 +111,21 @@ async function handleApi(request, env, url) {
       if (body.nickname !== undefined && typeof body.nickname !== 'string') {
         return json({ error: 'Enter a valid pickle nickname.' }, 400);
       }
+      if (body.ownerName !== undefined && typeof body.ownerName !== 'string') {
+        return json({ error: 'Enter a valid name for the person registering the pickle.' }, 400);
+      }
       const name = body.name?.trim() || null;
       const nickname = body.nickname?.trim() || null;
+      const ownerName = body.ownerName?.trim() || null;
       if (name && name.length > 60) return json({ error: 'Keep the pickle name to 60 characters.' }, 400);
       if (nickname && nickname.length > 60) return json({ error: 'Keep the pickle nickname to 60 characters.' }, 400);
+      if (ownerName && ownerName.length > 60) return json({ error: 'Keep your name to 60 characters.' }, 400);
       const result = await db.prepare(`
-        INSERT INTO pickles (entry_number, pickle_name, pickle_nickname) VALUES (?, ?, ?)
+        INSERT INTO pickles (entry_number, pickle_name, pickle_nickname, owner_name) VALUES (?, ?, ?, ?)
         ON CONFLICT (entry_number) DO NOTHING
-      `).bind(number, name, nickname).run();
+      `).bind(number, name, nickname, ownerName).run();
       if (!result.meta.changes) return json({ error: `Pickle #${number} is already registered.` }, 409);
-      return json({ number, name, nickname }, 201);
+      return json({ number, name, nickname, ownerName }, 201);
     }
 
     const { category, voteId, pickleId = null } = body;

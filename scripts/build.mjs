@@ -5,7 +5,10 @@ const publicFiles = [
   ['/style.css', 'style.css', 'text/css; charset=utf-8'],
   ['/app.js', 'app.js', 'text/javascript; charset=utf-8'],
   ['/assets/contest-sprites.png', 'assets/contest-sprites.png', 'image/png'],
-  ['/assets/flames.png', 'assets/flames.png', 'image/png']
+  ['/assets/flames.png', 'assets/flames.png', 'image/png'],
+  ['/assets/pickle.png', 'assets/pickle.png', 'image/png'],
+  ['/images/search.svg', 'images/search.svg', 'image/svg+xml'],
+  ['/images/voting-help.svg', 'images/voting-help.svg', 'image/svg+xml']
 ];
 
 const entries = await Promise.all(publicFiles.map(async ([path, file, type]) => {

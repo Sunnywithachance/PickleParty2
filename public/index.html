@@ -39,20 +39,18 @@
         </div>
 
         <div class="actions">
-          <section class="panel registration" aria-labelledby="register-title">
-            <div class="panel-heading">
-              <span class="tile-icon plus" aria-hidden="true">+</span>
-              <h2 id="register-title">Register a Pickle</h2>
+          <section class="panel registration" aria-labelledby="register">
+            <img class="pickle-icon" src="/assets/pickle.png" alt="" width="360" height="360">
+            <div class="registration-content">
+              <button class="hot-button register" id="register" type="button"><span aria-hidden="true">+</span> Register a Pickle</button>
+              <p>Add your pickle to the competition</p>
             </div>
-            <p>Add your pickle to the competition</p>
-            <div class="jar" aria-hidden="true"></div>
-            <button class="hot-button register" id="register" type="button"><span aria-hidden="true">+</span> Register a Pickle</button>
           </section>
           <section class="panel lookup">
             <form id="search" role="search">
               <div class="panel-heading">
                 <span class="tile-icon" aria-hidden="true"><span class="magnifier"></span></span>
-                <label for="search-number">Find by<br>Entry Number</label>
+                <label for="search-number">Find by <span>Entry Number</span></label>
               </div>
               <p>Look up a specific pickle entry</p>
               <div class="search-box">
@@ -63,7 +61,7 @@
           </section>
           <section class="panel instructions" id="how-to-vote" aria-labelledby="how-title">
             <div class="panel-heading">
-              <span class="tile-icon" aria-hidden="true">✿</span>
+              <span class="tile-icon"><img class="help-icon" src="/images/voting-help.svg" alt="" width="48" height="48"></span>
               <h2 id="how-title">How Voting Works</h2>
             </div>
             <ol class="steps">
